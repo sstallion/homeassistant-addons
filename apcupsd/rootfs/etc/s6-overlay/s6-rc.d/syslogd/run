@@ -1,0 +1,6 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Start syslogd service
+# ==============================================================================
+bashio::log.info "Starting syslogd service..."
+exec /sbin/syslogd -n -O - -S -t

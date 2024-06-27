@@ -1,0 +1,20 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Start apcupsd service
+# ==============================================================================
+declare -a options
+
+if bashio::config.true kill_on_powerfail; then
+    options+=(--kill-on-powerfail)
+fi
+
+if bashio::config.true dumb_mode; then
+    options+=(-R)
+fi
+
+# Set maximum number of open file descriptors to something reasonable to keep
+# execute_command() from hanging; see lib/apcexec.c:195 for details.
+ulimit -n 64
+
+bashio::log.info "Starting apcupsd service..."
+exec /sbin/apcupsd -b "${options[@]}"

@@ -1,0 +1,42 @@
+name: APC UPS Daemon
+version: '0.0.1'
+slug: apcupsd
+description: >-
+  Permits orderly shutdown of Home Assistant in the event of a power failure
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+url: 'https://github.com/sstallion/hassio-addons/tree/main/apcupsd'
+startup: services
+host_network: true
+hassio_role: manager
+hassio_api: true
+usb: true
+uart: true
+options:
+  kill_on_powerfail: false
+  dumb_mode: false
+  upscable: smart
+  upstype: apcsmart
+  device: '/dev/ttyS0'
+  polltime: 60
+  onbatterydelay: 6
+  batterylevel: 5
+  minutes: 3
+  timeout: 0
+schema:
+  kill_on_powerfail: bool
+  dumb_mode: bool
+  upscable: 'list(simple|smart|ether|usb|940-0119A|940-0127A|940-0128A|940-0020B|940-0020C|940-0023A|940-0024B|940-0024C|940-1524C|940-0024G|940-0095A|940-0095B|940-0095C|940-0625A|MAM-04-02-2000)'
+  upstype: 'list(dumb|apcsmart|net|usb|snmp|pcnet|modbus|test)'
+  device: 'str?'
+  polltime: int
+  onbatterydelay: int
+  batterylevel: int
+  minutes: int
+  timeout: int
+image: ghcr.io/sstallion/hassio-addons-apcupsd-{arch}
+init: false

@@ -1,0 +1,13 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Prepare apcupsd service
+# ==============================================================================
+
+# Remove stale flag files
+rm -f /etc/nologin /etc/apcupsd/powerfail
+
+# Update apcupsd.conf with user configuration
+tempio \
+    -conf /data/options.json \
+    -template /usr/share/tempio/apcupsd.conf \
+    -out /etc/apcupsd/apcupsd.conf

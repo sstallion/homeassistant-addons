@@ -1,0 +1,48 @@
+configuration:
+  kill_on_powerfail:
+    name: Kill on Powerfail
+    description: >-
+      Instructs the add-on to command the UPS to power down in hibernate mode
+      just before it starts the system shutdown.
+  dumb_mode:
+    name: Force Simple Signalling
+    description: >-
+      Put a UPS which runs in smart signalling mode by default (e.g. a
+      Smart-UPS) into simple signalling mode.
+  upscable:
+    name: UPS Cable
+    description: The type of cable used to connect the UPS to Home Assistant.
+  upstype:
+    name: UPS Type
+    description: The type of APC UPS that you have.
+  device:
+    name: Device
+    description: >-
+      The name of the device used for communication between the UPS and Home
+      Assistant. For a USB UPS, you should leave this option blank and the
+      add-on will figure out where the device is located. See the
+      documentation section for more details.
+  polltime:
+    name: Poll Time
+    description: The rate in seconds that the add-on polls the UPS for status.
+  onbatterydelay:
+    name: On Battery Delay
+    description: >-
+      The number of seconds from when a power failure is detected until the
+      add-on reacts with an onbattery event.
+  batterylevel:
+    name: Battery Level
+    description: >
+      The add-on will shutdown Home Assistant during a power failure when the
+      remaining battery charge falls below the specified percentage.
+  minutes:
+    name: Minutes
+    description: >-
+      The add-on will shutdown Home Assistant during a power failure when the
+      remaining runtime on batteries as internally calculated by the UPS falls
+      below the specified minutes.
+  timeout:
+    name: Timeout
+    description: >-
+      After a power failure occurs, the add-on will shutdown Home Assistant
+      after the specified number of seconds have expired. 

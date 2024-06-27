@@ -1,0 +1,103 @@
+#!/usr/bin/env bashio
+#
+# Copyright (C) 1999-2002 Riccardo Facchetti <riccardo@master.oasi.gpa.it>
+#
+#  for apcupsd release 3.14.14 (31 May 2016) - unknown
+#
+# platforms/apccontrol.  Generated from apccontrol.in by configure.
+#
+#  Note, this is a generic file that can be used by most
+#   systems. If a particular system needs to have something
+#   special, start with this file, and put a copy in the
+#   platform subdirectory.
+#
+
+APCUPSD=/sbin/apcupsd
+WALL=_wall
+
+_wall() {
+   local i
+   local msg=$(cat)
+   for i in /dev/pts/*; do
+       [ -c "$i" ] && echo "$msg" > $i
+   done
+}
+
+case "$1" in
+    killpower)
+        echo "Apccontrol doing: ${APCUPSD} --killpower on UPS ${2}" | ${WALL}
+        sleep 10
+        ${APCUPSD} --killpower
+        echo "Apccontrol has done: ${APCUPSD} --killpower on UPS ${2}" | ${WALL}
+    ;;
+    commfailure)
+        echo "Warning communications lost with UPS ${2}" | ${WALL}
+    ;;
+    commok)
+        echo "Communications restored with UPS ${2}" | ${WALL}
+    ;;
+#
+# powerout, onbattery, offbattery, mainsback events occur
+#   in that order.
+#
+    powerout)
+    ;;
+    onbattery)
+        echo "Power failure on UPS ${2}. Running on batteries." | ${WALL}
+    ;;
+    offbattery)
+        echo "Power has returned on UPS ${2}..." | ${WALL}
+    ;;
+    mainsback)
+        if [ -f /etc/apcupsd/powerfail ] ; then
+           printf "Continuing with shutdown."  | ${WALL}
+        fi
+    ;;
+    failing)
+        echo "Battery power exhausted on UPS ${2}. Doing shutdown." | ${WALL}
+    ;;
+    timeout)
+        echo "Battery time limit exceeded on UPS ${2}. Doing shutdown." | ${WALL}
+    ;;
+    loadlimit)
+        echo "Remaining battery charge below limit on UPS ${2}. Doing shutdown." | ${WALL}
+    ;;
+    runlimit)
+        echo "Remaining battery runtime below limit on UPS ${2}. Doing shutdown." | ${WALL}
+    ;;
+    doreboot)
+        echo "UPS ${2} initiating Reboot Sequence" | ${WALL}
+        echo "apcupsd UPS ${2} initiated reboot" | ${WALL}
+        bashio::host.reboot
+    ;;
+    doshutdown)
+        echo "UPS ${2} initiated Shutdown Sequence" | ${WALL}
+        echo "apcupsd UPS ${2} initiated shutdown" | ${WALL}
+        bashio::host.shutdown
+    ;;
+    annoyme)
+        echo "Power problems with UPS ${2}. Please logoff." | ${WALL}
+    ;;
+    emergency)
+        echo "Emergency Shutdown. Possible battery failure on UPS ${2}." | ${WALL}
+    ;;
+    changeme)
+        echo "Emergency! Batteries have failed on UPS ${2}. Change them NOW" | ${WALL}
+    ;;
+    remotedown)
+        echo "Remote Shutdown. Beginning Shutdown Sequence." | ${WALL}
+    ;;
+    startselftest)
+    ;;
+    endselftest)
+    ;;
+    battdetach)
+    ;;
+    battattach)
+    ;;
+    *)        echo "Usage: ${0##*/} command"
+        echo "             warning: this script is intended to be launched by"
+        echo "             apcupsd and should never be launched by users."
+        exit 1
+    ;;
+esac
