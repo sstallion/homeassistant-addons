@@ -1,5 +1,5 @@
 name: APC UPS Daemon
-version: '1.0.0'
+version: '1.0.1'
 slug: apcupsd
 description: >-
   Permits orderly shutdown of Home Assistant in the event of a power failure
@@ -9,7 +9,7 @@ arch:
   - aarch64
   - amd64
   - i386
-url: 'https://github.com/sstallion/hassio-addons/tree/main/apcupsd'
+url: 'https://github.com/sstallion/homeassistant-addons/tree/main/apcupsd'
 startup: services
 host_network: true
 hassio_role: manager
@@ -38,5 +38,5 @@ schema:
   batterylevel: int
   minutes: int
   timeout: int
-image: ghcr.io/sstallion/hassio-addons-apcupsd-{arch}
+image: ghcr.io/sstallion/homeassistant-addons-apcupsd-{arch}
 init: false
