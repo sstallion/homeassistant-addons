@@ -1,0 +1,15 @@
+--- ./src/drivers/pcnet/pcnet.c	(revision 2381)
++++ ./src/drivers/pcnet/pcnet.c	(working copy)
+@@ -32,10 +32,10 @@
+ 
+ /*
+  * Number of seconds with no data before we declare COMMLOST.
+- * UPS should report in every 25 seconds. We allow 2 missing
++ * UPS should report in every 25 seconds. We allow 3 missing
+  * reports plus a fudge factor.
+  */
+-#define COMMLOST_TIMEOUT   55
++#define COMMLOST_TIMEOUT   80
+ 
+ /* Win32 needs a special close for sockets */
+ #ifdef HAVE_MINGW
