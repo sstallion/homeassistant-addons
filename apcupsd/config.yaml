@@ -1,5 +1,5 @@
 name: APC UPS Daemon
-version: '1.0.1'
+version: '1.0.2'
 slug: apcupsd
 description: >-
   Permits orderly shutdown of Home Assistant in the event of a power failure
