@@ -8,16 +8,16 @@ RUN apk add \
     sudo
 
 RUN git clone --depth 1 https://gitlab.alpinelinux.org/alpine/aports.git
+COPY files/* /aports/main/apcupsd/
 
-RUN --mount=target=/aports/main/apcuspd,source=./apcupsd \
-    abuild-keygen -a -i -n \
+RUN abuild-keygen -a -i -n \
     && abuild -Fr -C /aports/main/apcupsd -P /packages
 
 FROM $BUILD_FROM
 
 # Install requirements
 RUN --mount=target=/mnt,source=/packages,from=apcupsd \
-    apk add --allow-untrusted --no-cache /mnt/main/*/apcupsd-3.14.14*.apk
+    apk add --allow-untrusted --no-cache /mnt/main/*/apcupsd-3.14.14-r6.apk
 
 # /dev/log is symlinked to /run/systemd/journal/dev-log by the container host;
 # the parent path must exist for syslogd to create the log socket at startup.
