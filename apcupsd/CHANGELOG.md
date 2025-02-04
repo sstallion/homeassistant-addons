@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Reworked APKBUILD
+
 ## 1.0.2
 
 - Minor version bump to clear invalid cache entry.
