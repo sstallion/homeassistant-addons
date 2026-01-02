@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Minor version bump to clear invalid cache entry.
+
 ## 1.1.0
 
 - Configuration defaults to USB
