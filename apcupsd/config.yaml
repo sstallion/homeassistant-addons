@@ -14,14 +14,13 @@ startup: services
 host_network: true
 hassio_role: manager
 hassio_api: true
-usb: true
-uart: true
+full_access: true
 options:
   kill_on_powerfail: false
   dumb_mode: false
-  upscable: smart
-  upstype: apcsmart
-  device: '/dev/ttyS0'
+  upscable: usb
+  upstype: usb
+  device: ''
   polltime: 60
   onbatterydelay: 6
   batterylevel: 5
