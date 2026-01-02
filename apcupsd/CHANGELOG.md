@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Configuration defaults to USB
+
 ## 1.0.3
 
 - Reworked APKBUILD
